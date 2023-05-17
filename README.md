@@ -12,9 +12,10 @@
     127.0.0.1       mongo2
     127.0.0.1       mongo3
     ```
-3. start mongodb services
+3. start mongodb and redis
     ```bash
-    docker-compose -f docker-compose-infra.yml up -d
+    docker-compose -f docker-compose-mongo.yml up -d
+    docker-compose -f docker-compose-redis.yml up -d
     ```
 4. init the replica set
     ```bash

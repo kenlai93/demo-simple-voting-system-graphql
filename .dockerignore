@@ -1,0 +1,6 @@
+.mongo
+.vscode
+coverage
+dist
+docker
+node_modules

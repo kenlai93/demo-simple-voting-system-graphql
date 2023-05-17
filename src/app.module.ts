@@ -10,7 +10,10 @@ import { VotingModule } from './modules/voting/voting.module'
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      // enable for demo
       playground: true,
+      // enable for demo
+      introspection: true,
       autoSchemaFile: path.join(process.cwd(), 'src/schema.gql'),
       subscriptions: {
         'graphql-ws': true,

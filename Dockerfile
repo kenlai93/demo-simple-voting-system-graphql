@@ -6,12 +6,10 @@ COPY ./package*.json /workspace
 
 RUN npm install
 
-COPY ./src ./src
-COPY ./prisma ./prisma
-COPY ./tsconfig*.json ./
+COPY . .
 
 RUN npm run prisma:generate && npm run build
 
 EXPOSE 3000
 
-CMD npm run start
+CMD npm run start:prod
