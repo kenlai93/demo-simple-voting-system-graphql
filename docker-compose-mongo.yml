@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  mongo1:
+    container_name: mongo1
+    image: mongo:5
+    volumes:
+      - ./docker/mongo/data/mongo1:/data/db
+      - ./docker/mongo/scripts:/scripts
+    networks:
+      - mongo-subnet
+    ports:
+      - 27021:27021
+    links:
+      - mongo2
+      - mongo3
+    restart: always
+    command: mongod --replSet dbrs --bind_ip_all --port 27021
+
+  mongo2:
+    container_name: mongo2
+    image: mongo:5
+    volumes:
+      - ./docker/mongo/data/mongo2:/data/db
+    networks:
+      - mongo-subnet
+    ports:
+      - 27022:27022
+    restart: always
+    command: mongod --replSet dbrs --bind_ip_all --port 27022
+
+  mongo3:
+    container_name: mongo3
+    image: mongo:5
+    volumes:
+      - ./docker/mongo/data/mongo3:/data/db
+    networks:
+      - mongo-subnet
+    ports:
+      - 27023:27023
+    restart: always
+    command: mongod --replSet dbrs --bind_ip_all --port 27023
+
+networks:
+  mongo-subnet:
+    driver: bridge

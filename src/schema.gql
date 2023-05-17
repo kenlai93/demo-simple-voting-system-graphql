@@ -1,0 +1,109 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type SortBy {
+  sortBy: String!
+  sortOrder: SortOrder!
+}
+
+enum SortOrder {
+  Asc
+  Desc
+}
+
+type PageInfo {
+  page: Int!
+  pageSize: Int!
+  sortBys: [SortBy!]
+  total: Int!
+}
+
+type VotingChoice {
+  id: ID!
+  name: String!
+  count: Int!
+}
+
+type Campaign {
+  id: ID!
+  name: String!
+  desc: String
+  choices: [VotingChoice!]!
+  totalVote: Int!
+  startTime: DateTime!
+  endTime: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type QueryCampaignResult {
+  data: [Campaign!]!
+  pageInfo: PageInfo!
+}
+
+type LiveCampaignData {
+  id: ID!
+  choices: [VotingChoice!]!
+  totalVote: Int!
+}
+
+type Vote {
+  campaignId: String!
+  choiceId: String!
+  createdAt: DateTime!
+}
+
+type Query {
+  getCampaign(campaignId: String!): Campaign!
+  queryCampaign(filter: QueryCampaignFilter!, pageInfo: PageInfoInput): QueryCampaignResult!
+}
+
+input QueryCampaignFilter {
+  id: ID
+  name: String
+  choiceName: String
+}
+
+input PageInfoInput {
+  page: Int = 1
+  pageSize: Int = 20
+  sortBys: [SortByInput!]
+}
+
+input SortByInput {
+  sortBy: String!
+  sortOrder: SortOrder = Asc
+}
+
+type Mutation {
+  createCampaign(newCampaign: CreateCampaignInput!): Campaign!
+  vote(input: VoteInput!): Vote!
+}
+
+input CreateCampaignInput {
+  name: String!
+  desc: String
+  choices: [CreateCampaignChoiceInput!]!
+  startTime: DateTime!
+  endTime: DateTime!
+}
+
+input CreateCampaignChoiceInput {
+  name: String!
+}
+
+input VoteInput {
+  campaignId: String!
+  choiceId: String!
+  hkid: String!
+}
+
+type Subscription {
+  subscribeLiveCampaignData: LiveCampaignData!
+}

@@ -1,0 +1,13 @@
+{
+  "configurations": [
+    {
+      "name": "Launch Program",
+      "args": ["${file}"],
+      "runtimeArgs": ["--require=ts-node/register", "--require=tsconfig-paths/register"],
+      "request": "launch",
+      "outputCapture": "std",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    }
+  ]
+}
