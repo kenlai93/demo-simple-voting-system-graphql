@@ -12,20 +12,23 @@
     127.0.0.1       mongo2
     127.0.0.1       mongo3
     ```
-3. start mongodb and redis
+3. start mongodb
     ```bash
     docker-compose -f docker-compose-mongo.yml up -d
+    ```
+4. start redis
+    ```bash
     docker-compose -f docker-compose-redis.yml up -d
     ```
-4. init the replica set
+5. init the replica set
     ```bash
     docker exec -it mongo1 sh -c "mongo --port 27021 < ./scripts/init-rs.js"
     ```
-5. wait 10 seconds, to init data
+6. wait 10 seconds, to init data
     ```bash
     docker exec -it mongo1 sh -c "mongo --port 27021 <./scripts/init-data.js"
     ```
-6. start backend
+7. start backend
     1. in docker
         ```bash
         docker-compose -f docker-compose-backend.yml up -d
